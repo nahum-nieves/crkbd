@@ -5,8 +5,8 @@
 
 /* Select hand configuration */
 
-// #define MASTER_LEFT
-#define MASTER_RIGHT
+#define MASTER_LEFT
+//#define MASTER_RIGHT
 // #define EE_HANDS
 
 // #define SSD1306OLED
@@ -18,7 +18,7 @@
 // #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 200
 //#define RETRO_TAPPING
-#define IGNORE_MOD_TAP_INTERRUPT
+//#define IGNORE_MOD_TAP_INTERRUPT
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/arturo/glcdfont.c"
 // #define OLED_FONT_WIDTH 5
