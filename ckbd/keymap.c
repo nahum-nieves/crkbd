@@ -46,7 +46,7 @@ enum {
     TD_DOWN_PGDN,
     TD_UP_PGUP,
     TD_DELSUPR,
-    TD_CAPLOCK,
+    TD_CTRL_LGUI,
     TD_ALT,
 };
 
@@ -54,8 +54,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
  
         KC_ESC,KC_Q,KC_W,KC_E,KC_R,KC_T,                     KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSPC,
-        TD(TD_CAPLOCK),KC_A,KC_S,KC_D,KC_F,KC_G,                     KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_RBRC,
-        KC_LCTL,KC_Z,KC_X,KC_C,KC_V,KC_B,                     KC_N,KC_M,KC_COMM,KC_DOT,KC_MINS,KC_LBRC,
+        KC_LSFT,KC_A,KC_S,KC_D,KC_F,KC_G,                     KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_RBRC,
+        TD(TD_CTRL_LGUI),KC_Z,KC_X,KC_C,KC_V,KC_B,                     KC_N,KC_M,KC_COMM,KC_DOT,KC_MINS,KC_LBRC,
                TD(TD_ALT),MO(1),TD(TD_SPACE_ENTER),      TD(TD_SPACE_ENTER),MO(2),ES_LABK
 
 
@@ -63,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT(
       
-        KC_TAB,KC_MPLY,KC_MUTE,KC_VOLD,KC_VOLU,QK_BOOT,                            KC_PPLS,TD(TD_UP_PGUP),KC_PMNS,KC_7,KC_8,KC_9,
-        KC_NO,KC_NO,KC_NO,KC_PSCR,KC_BRID,KC_BRIU,                                TD(TD_LEFT_HOME),TD(TD_DOWN_PGDN),TD(TD_RIGHT_END),KC_4,KC_5,KC_6,
+        KC_TAB,KC_MPLY,KC_MUTE,KC_VOLD,KC_VOLU,KC_NO,                            KC_PPLS,TD(TD_UP_PGUP),KC_PMNS,KC_7,KC_8,KC_9,
+        KC_CAPS,KC_NO,KC_NO,KC_PSCR,KC_BRID,KC_BRIU,                                TD(TD_LEFT_HOME),TD(TD_DOWN_PGDN),TD(TD_RIGHT_END),KC_4,KC_5,KC_6,
         KC_LGUI,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                                        KC_PSLS,KC_PAST,KC_0,KC_1,KC_2,KC_3,
                                         KC_LGUI,KC_TRNS,KC_SPC,          KC_ENT,KC_TRNS,KC_LALT
 
@@ -73,8 +73,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT(
        KC_NO,KC_NO,KC_NO,KC_NO,KC_INS,KC_NO,                         KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,KC_DELETE,
-       KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,                     KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_DEL,
-       KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,                       KC_QUOT,KC_SLSH,KC_BSLS,KC_PIPE,KC_EQL,KC_RSFT,
+       KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,                     KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_SLSH,
+       KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,                       KC_QUOT,KC_SLSH,KC_BSLS,KC_PIPE,KC_EQL,KC_NO,
                                          KC_LGUI,KC_TRNS,KC_ENT,          KC_ENT,KC_TRNS,KC_RALT
   )
 };
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for ;, twice for :
-    [TD_CAPLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+    [TD_CTRL_LGUI] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_LGUI),
     [TD_SPACE_ENTER] = ACTION_TAP_DANCE_DOUBLE(KC_SPC,KC_ENT),
     [TD_ALT] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_RALT),
     [TD_DELSUPR] =ACTION_TAP_DANCE_DOUBLE(KC_BSPC,KC_DELETE),
