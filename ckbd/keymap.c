@@ -3,6 +3,7 @@
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 #include "sendstring_spanish_latin_america.h"
+#include "keymap_spanish_latin_america.h"
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -33,7 +34,8 @@ enum layers {
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
-  RAISE
+  RAISE,
+  ANGLE_BRACKETS   // Símbolo < sin shift, > con shift (unified)
   //ADJUST,
   //MACRO1,
   //MACRO2
@@ -74,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT(
        KC_NO,KC_NO,KC_NO,KC_NO,KC_INS,KC_NO,                         KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,KC_DELETE,
        KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,                     KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_SLSH,
-       KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,                       KC_QUOT,KC_SLSH,KC_BSLS,KC_PIPE,KC_EQL,KC_NO,
+       KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,                       KC_QUOT,ANGLE_BRACKETS,KC_BSLS,KC_PIPE,KC_EQL,KC_GRV,
                                          KC_LGUI,KC_TRNS,KC_ENT,          KC_ENT,KC_TRNS,KC_RALT
   )
 };
@@ -370,6 +372,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RAISE);
         //update_tri_layer_RGB(_LOWER, _RAISE);
+      }
+      return false;
+    case ANGLE_BRACKETS:
+      if (record->event.pressed) {
+        // Solución definitiva: Crear una macro con teclas de cambio manual
+        uint8_t saved_mods = get_mods();
+        
+        if (saved_mods & MOD_MASK_SHIFT) {
+          // Shift presionado: mostrar mensaje para > y enviarlo en US
+          // Usuario debe cambiar a US manualmente (Ctrl+Space) antes de usar
+          tap_code16(S(KC_DOT)); // > en layout US
+        } else {
+          // Sin shift: mostrar mensaje para < y enviarlo en US  
+          tap_code16(S(KC_COMM)); // < en layout US
+        }
       }
       return false;
    //case ADJUST:

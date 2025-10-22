@@ -24,6 +24,8 @@
 // #define OLED_FONT_WIDTH 5
 // #define OLED_FONT_HEIGHT 7
 
+// Unicode deshabilitado por problemas de compilación
+
 //#ifdef RGB_MATRIX_ENABLE
 //#   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
