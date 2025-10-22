@@ -4,6 +4,7 @@
 #include "quantum.h"
 #include "sendstring_spanish_latin_america.h"
 #include "keymap_spanish_latin_america.h"
+#include "keymap_us.h"
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -35,7 +36,8 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
-  ANGLE_BRACKETS   // Símbolo < sin shift, > con shift (unified)
+  ANGLE_BRACKETS,  // Símbolo < sin shift, > con shift (unified)
+  SCREENSHOT       // Cmd+Shift+4 para captura de pantalla
   //ADJUST,
   //MACRO1,
   //MACRO2
@@ -65,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT(
       
-        KC_TAB,KC_MPLY,KC_MUTE,KC_VOLD,KC_VOLU,KC_NO,                            KC_PPLS,TD(TD_UP_PGUP),KC_PMNS,KC_7,KC_8,KC_9,
+        KC_TAB,KC_MPLY,KC_MUTE,KC_VOLD,KC_VOLU,SCREENSHOT,                            KC_PPLS,TD(TD_UP_PGUP),KC_PMNS,KC_7,KC_8,KC_9,
         KC_CAPS,KC_NO,KC_NO,KC_PSCR,KC_BRID,KC_BRIU,                                TD(TD_LEFT_HOME),TD(TD_DOWN_PGDN),TD(TD_RIGHT_END),KC_4,KC_5,KC_6,
         KC_LGUI,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                                        KC_PSLS,KC_PAST,KC_0,KC_1,KC_2,KC_3,
                                         KC_LGUI,KC_TRNS,KC_SPC,          KC_ENT,KC_TRNS,KC_LALT
@@ -376,17 +378,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case ANGLE_BRACKETS:
       if (record->event.pressed) {
-        // Solución definitiva: Crear una macro con teclas de cambio manual
+        // Usar los keycodes específicos de la documentación QMK
         uint8_t saved_mods = get_mods();
         
         if (saved_mods & MOD_MASK_SHIFT) {
-          // Shift presionado: mostrar mensaje para > y enviarlo en US
-          // Usuario debe cambiar a US manualmente (Ctrl+Space) antes de usar
-          tap_code16(S(KC_DOT)); // > en layout US
+          // Shift presionado: enviar > usando keycode específico
+          tap_code16(KC_GT); // > keycode estándar QMK
         } else {
-          // Sin shift: mostrar mensaje para < y enviarlo en US  
-          tap_code16(S(KC_COMM)); // < en layout US
+          // Sin shift: enviar < usando keycode específico
+          tap_code16(KC_LT); // < keycode estándar QMK
         }
+      }
+      return false;
+    case SCREENSHOT:
+      if (record->event.pressed) {
+        // Ejecutar Cmd+Shift+4 para captura de pantalla en macOS
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        register_code(KC_4);
+        unregister_code(KC_4);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LGUI);
       }
       return false;
    //case ADJUST:
